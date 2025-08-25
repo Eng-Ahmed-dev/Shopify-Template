@@ -1,43 +1,101 @@
-<div class="relative w-full h-[700px]">
-  {% if section.settings.hero_image != blank %}
-    <img src="{{ section.settings.hero_image | img_url: 'master' }}" class="w-full h-full object-cover" alt="Hero Image">
-    <div class="absolute inset-0 flex flex-col justify-center items-center text-center bg-black/40 px-4">
-      <h1 class="text-white text-4xl font-bold mb-4">{{ section.settings.hero_heading }}</h1>
-      <a class="bg-white text-black underline px-6 py-3" href="{{ section.settings.hero_link }}"> {{ section.settings.hero_button_text }} </a>
-      
-    </div>
-  {% endif %}
+<div class="flex relative">
+  <div class=" h-[700px] md:h-[600px]">
+    <img src="{{ section.settings.img1 }}" >
+
+    {{ section.settings.vid1 |  video_tag: autoplay: true, loop: true, muted: true, class: 'w-full h-full object-cover' }}
+
+    
+  </div>
+  <div class=" h-[700px] md:h-[600px]">
+   
+    
+    <img src="{{ section.settings.img2 }}" >
+
+    
+    
+    {{ section.settings.vid2 |  video_tag: class: 'w-full h-full object-cover' }}
+  </div>
+  <div class="abselute z-0">
+    <h1>{{ section.settings.head_title }}</h1>
+    <a href="{{ section.settings.url }}"> {{ section.settings.anker_title }} </a>
+  </div>
+
 </div>
 
 {% schema %}
 {
-  "name": "hero",
+  "name": "Hero",
   "settings": [
-    {
-      "type": "text",
-      "id": "hero_heading",
-      "label": "Hero Heading",
-      "default": "Welcome to our store"
-    },
-    {
-      "type": "text",
-      "id": "hero_button_text",
-      "label": "Button Text",
-      "default": "Shop Now"
-    },
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero Image"
-    },
-    {
-      "type": "url",
-      "id": "hero_link",
-      "label": "Hero Button Link",
-      "default": "/collections/all"
-    }
+      {
+        "type": "select",
+        "id": "media1",
+        "label": "Media 1",
+        "options": [
+          {
+            "value": "image",
+            "label": "Image"
+          },
+          {
+            "value": "video",
+            "label": "Video"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "media2",
+        "label": "Media 1",
+        "options": [
+          {
+            "value": "image",
+            "label": "Image"
+          },
+          {
+            "value": "video",
+            "label": "Video"
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "id": "vid1",
+        "label": "Video 1"
+      },
+      {
+        "type": "video",
+        "id": "vid2",
+        "label": "Video 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "img1",
+        "label": "Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "img2",
+        "label": "Image 2"
+      },
+      {
+        "type": "text",
+        "id": "head_title",
+        "default": "Welcome to Our Store",
+        "label": "Heading Title"
 
-  ]
-  
+      },
+      {
+        "type": "text",
+        "id": "anker_title",
+        "default": "Shop Now",
+        "label": "Anchor Title"
+      },
+      {
+        "type": "url",
+        "id": "url",
+        "default": "/collections/all",
+        "label": "URL"
+      }
+    
+    ]
 }
 {% endschema %}
