@@ -1,0 +1,101 @@
+<div class="flex relative">
+  <div class=" h-[700px] md:h-[600px]">
+    <img src="{{ section.settings.img1 }}" >
+
+    {{ section.settings.vid1 |  video_tag: autoplay: true, loop: true, muted: true, class: 'w-full h-full object-cover' }}
+
+    
+  </div>
+  <div class=" h-[700px] md:h-[600px]">
+   
+    
+    <img src="{{ section.settings.img2 }}" >
+
+    
+    
+    {{ section.settings.vid2 |  video_tag: class: 'w-full h-full object-cover' }}
+  </div>
+  <div class="abselute z-0">
+    <h1>{{ section.settings.head_title }}</h1>
+    <a href="{{ section.settings.url }}"> {{ section.settings.anker_title }} </a>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+      {
+        "type": "select",
+        "id": "media1",
+        "label": "Media 1",
+        "options": [
+          {
+            "value": "image",
+            "label": "Image"
+          },
+          {
+            "value": "video",
+            "label": "Video"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "media2",
+        "label": "Media 1",
+        "options": [
+          {
+            "value": "image",
+            "label": "Image"
+          },
+          {
+            "value": "video",
+            "label": "Video"
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "id": "vid1",
+        "label": "Video 1"
+      },
+      {
+        "type": "video",
+        "id": "vid2",
+        "label": "Video 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "img1",
+        "label": "Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "img2",
+        "label": "Image 2"
+      },
+      {
+        "type": "text",
+        "id": "head_title",
+        "default": "Welcome to Our Store",
+        "label": "Heading Title"
+
+      },
+      {
+        "type": "text",
+        "id": "anker_title",
+        "default": "Shop Now",
+        "label": "Anchor Title"
+      },
+      {
+        "type": "url",
+        "id": "url",
+        "default": "/collections/all",
+        "label": "URL"
+      }
+    
+    ]
+}
+{% endschema %}

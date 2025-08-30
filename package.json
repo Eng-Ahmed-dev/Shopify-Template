@@ -1,0 +1,12 @@
+{
+  "name": "store-theme",
+  "version": "1.0.0",
+  "description": "using HTML, Tailwind css, and a little bit of JS, I made this Theme\r First JSON template files and sections link to create good-looking and organized pages\r The customizer page on the Shopify stores is significant, so each section has a variety of customizable parts The \r last part is the snippets files that can be used for many parts of the code",
+  "main": "postcss.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
