@@ -3,13 +3,69 @@
         <h1 class="text-xl my-4 text-center">Search Results</h1>
 
         <div class="flex justify-center items-center">
-            <form action="{{ routes.search_url }}" method="get" class="border flex rounded">
-                <input type="search" name="q" placeholder="Search" value="{{ search.terms | escape }}"
-                    class="px-4 py-2 w-80 border-none"
-                >
+            <div class="border flex rounded overflow-hidden" id="search-wrapper">
+  <input 
+    id="search-input"
+    type="search" 
+    placeholder="Search"
+    class="px-4 py-2 w-80 border-none outline-none"
+  >
+  <button 
+    id="search-btn" 
+    class="bg-gray-900 hover:bg-gray-700 text-white px-4">
+    Search
+  </button>
+</div>
 
-                <button type="submit" class="bg-gray-900 hover:bg-gray-700 text-white border px-4">Search</button>
-            </form>
+<!-- Search results -->
+<div id="search-results" class="mt-4 space-y-2"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("search-input");
+  const button = document.getElementById("search-btn");
+  const resultsBox = document.getElementById("search-results");
+
+  function performSearch(query) {
+    if (!query.trim()) return;
+
+    fetch(`{{ routes.search_url }}?q=${encodeURIComponent(query)}&view=json`)
+      .then(res => res.json())
+      .then(data => {
+        resultsBox.innerHTML = "";
+        if (data.results.length === 0) {
+          resultsBox.innerHTML = "<p class='text-gray-500'>No results found.</p>";
+          return;
+        }
+        data.results.forEach(item => {
+          resultsBox.innerHTML += `
+            <a href="${item.url}" class="block p-3 border rounded hover:bg-gray-50">
+              <h3 class="font-semibold">${item.title}</h3>
+              <p class="text-sm text-gray-500">${item.price}</p>
+            </a>
+          `;
+        });
+      })
+      .catch(err => {
+        console.error("Search error:", err);
+        resultsBox.innerHTML = "<p class='text-red-500'>Error searching. Try again.</p>";
+      });
+  }
+
+  button.addEventListener("click", e => {
+    e.preventDefault();
+    performSearch(input.value);
+  });
+
+  input.addEventListener("keypress", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      performSearch(input.value);
+    }
+  });
+});
+</script>
+
         </div>
         {% if search.performed %}
             {% if search.results.size > 0 %}
